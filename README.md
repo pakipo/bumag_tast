@@ -1,27 +1,62 @@
-# BumagiTest
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.6.
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+https://www.figma.com/file/JrFPGJVsLIbrYRy8pXaBpp/Frontend-Test?node-id=5%3A359
+Лоадер: https://codepen.io/TaniaLD/pen/oKxep (#6,можно не 1 в 1)
 
-## Code scaffolding
+Приложение состоит из 3-ёх основных экранов.
+Сделать нужно аккуратно, с расчётом на то, что приложение в будущем будет разрастаться. Костылить нельзя.
+Если в дизайне есть косяки (одинаковые элементы сделаны по-разному) - делаем на свой вкус.
+Не забывай, что бэк может работать фигово. Это нужно обрабатывать.
+Что можно использовать: все делаем самостоятельно. Для модалок и оверлеев можно использовать @angular/material и @angular/cdk. Стили должны быть строго как на макете.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Авторизация 
+Авторизация - простая, можно кликнуть на глазик и покажется пароль, так же можно скрыть. 
 
-## Build
+POST https://bumagi-frontend-test.herokuapp.com/auth
+{
+	"login": "test@example.com",
+	"password": "1q2w3e"
+}
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Это валидные логин и пароль. При отправке неправильных нужно будет вывести notification. В ответ придет заголовок Authorization.
 
-## Running unit tests
+Список пользователей
+Если на момент загрузки списка бэк не отвечает, нужно вывести сообщение об ошибке и попробовать снова через 5 секунд.
+Список пользователей должен обновляться автоматически каждые 5 секунд.
+Если при автообновлении бэк не отвечает - ошибку не нужно показывать.
+В списке пользователей сверху есть фильтры по статусам.
+Бэком пользуетесь не только вы, поэтому данные там постоянно обновляются.
+Порядок пользователей все время меняется, у вас он должен оставаться таким же, как и во время загрузки.
+Лоадер крутится когда заходим в первый раз и каждый раз когда ходим по табам.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+В каждой строчке отображается:
+Аватарка
+Фамилия, инициалы
+Баланс (отформатированный, округлять до 2 после запятой)
+Дата последнего изменения пользователя (человекочитаемая)
+Статус (в макете дропдаун, его делать не нужно, просто отображать)
 
-## Running end-to-end tests
+Статусы:
+0 - Активен
+1 - Приостановлен
+2 - Заблокирован
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+GET https://bumagi-frontend-test.herokuapp.com/users?status=1
+Если не слать status, придут все пользователи.
 
-## Further help
+Редактирование пользователя
+При клике по пользователю открывается модалка.
+Можно редактировать ФИО, Статус подписки.
+После редактирования необходимо обновить пользователя в списке и закрыть модалку. Автообновление НЕ должно работать в модалке.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+PATCH https://bumagi-frontend-test.herokuapp.com/users/:id 
+{
+	“name”: “Иван”
+“fname”: “Иванов”,
+“mname”: “Иванович”,
+“status”: 1
+}
+
+Можно отсылать не все поля.
