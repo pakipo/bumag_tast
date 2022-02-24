@@ -1,1 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.mat-tab-group{
+    margin:0 auto;
+}
+
+.mat-tab-label.mat-ripple {
+  padding: 0 10px;
+  min-width: 40px;
+  margin-right: 40px;
+}
+.mat-tab-label-content {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  color: #D0C9D6
+}
+
+.mat-tab-header {
+  border: none;
+  background-color: #FFFFFF;
+  padding:0 48px;
+  
+}
+.mat-tab-body-wrapper {
+  padding: 48px 48px;
+}
+
+.mat-tab-label.mat-ripple.mat-tab-label-active {
+  .mat-tab-label-content {
+    color: #1A051D
+  }
+}
+
+.close {
+  .mat-icon-button {
+    span {
+      .mat-icon {
+        font-size:30px;
+        font-weight:600;
+      }
+    }
+  }
+}

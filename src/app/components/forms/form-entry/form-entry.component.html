@@ -1,0 +1,30 @@
+<div class="formEntryContainer">
+
+  <form [formGroup]="formEntery" (keyup)="enterKey($event,formEntery)" (submit)="submitFormEntery(formEntery)">
+    <div class="formblock">
+
+      <div class="formFild">
+        <input #userName type="text" formControlName="userName" placeholder="Login" autocomplete="off" />
+        <div class="error">
+          <span *ngIf="formEntery.get('userName')?.hasError('required') && formEntery.get('userName')!.touched">{{ errMessage(formEntery,'userName')}}</span>
+        </div>
+      </div>
+
+      <div class="formFild pass">
+        <input [type]=" passwordHide ? 'password' : 'text'" formControlName="password" placeholder="Password" autocomplete="off" />
+        <button type="button" mat-icon-button (click)="passwordHide = !passwordHide">
+          <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <div class="error">
+          <span *ngIf="formEntery.get('password')?.hasError('required') && formEntery.get('password')!.touched">{{ errMessage(formEntery,'password')}}</span>
+        </div>
+      </div>
+
+      <button mat-raised-button>ВОЙТИ</button>
+      <div class="error">
+        <span *ngIf="authorization">Неверный логин или пароль</span>
+      </div>
+
+    </div>
+  </form>
+</div>

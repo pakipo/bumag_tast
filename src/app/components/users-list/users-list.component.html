@@ -1,0 +1,24 @@
+<div class="containerList">
+  <div class="contentList">
+    <mat-tab-group dynamicHeight animationDuration="0ms">
+
+      <mat-tab label="Все"><button mat-raised-button (click)="modalObjCreate(mode.edit)">MODALOPEN</button> </mat-tab>
+      <mat-tab label="Заблокированные">Заблокированные</mat-tab>
+      <mat-tab label="Активные">Активные</mat-tab>
+
+    </mat-tab-group>
+
+    <div class="preloader" *ngIf="preload">
+      <app-preloader></app-preloader>
+    </div>
+
+  </div>
+</div>
+
+<div class="modalErr" *ngIf="modalErrview">
+  <app-modal-err (cancel)="cancelModal($event)" [initObj]="initModalObj"></app-modal-err>
+</div>
+
+<div class="preloader" *ngIf="preload">
+  <app-preloader></app-preloader>
+</div>

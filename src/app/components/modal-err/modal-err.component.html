@@ -1,0 +1,53 @@
+<ng-container [ngSwitch]="initObj.mode">
+
+  <!-- alert -->
+
+  <div class="container " *ngSwitchCase='1'>
+    <p class="title">{{initObj.message!.title}}</p>
+    <p>{{initObj.message!.mess}}</p>
+    <div class="btn" disabled>
+      <button mat-raised-button (click)="cancel($event)">{{initObj.btnText}}</button>
+    </div>
+  </div>
+
+  <!-- редактировать -->
+
+  <div class="container" *ngSwitchCase='2'>
+    <div class="headerForm">
+      <div class="titleForm">
+        <p>{{this.initObj.editObj!.fname}} {{this.initObj.editObj!.name}}</p>
+      </div>
+      <div class="close">
+        <button mat-icon-button (click)="f()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <form [formGroup]="formEdit" (submit)="submitForm(formEdit)">
+      <div class="names">
+
+        <div class="formFild">
+          <input #userName type="text" formControlName="fname" placeholder="Login" autocomplete="off" />
+
+        </div>
+
+        <div class="formFild">
+          <input #userName type="text" formControlName="name" placeholder="Login" autocomplete="off" />
+
+        </div>
+
+        <div class="formFild">
+          <input #userName type="text" formControlName="mname" placeholder="Login" autocomplete="off" />
+        </div>
+
+        <div class="formFild">
+          <input #userName type="text" formControlName="mname" placeholder="Login" autocomplete="off" />
+        </div>
+
+      </div>
+      <div class="submit">
+        <button mat-raised-button>Сохранить</button>
+      </div>
+    </form>
+  </div>
+</ng-container>

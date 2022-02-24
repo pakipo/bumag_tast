@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\components",
+    "\\src\\app\\components\\forms",
+    "\\src\\app\\components\\modal-err",
+    "\\src\\app\\components\\preloader",
+    "\\src\\app\\components\\users-list",
+    "\\src\\app\\shared\\services",
+    "\\src\\environments"
+  ],
+  "SelectedNode": "\\src\\app\\components\\modal-err\\modal-err.component.ts",
+  "PreviewInSolutionExplorer": false
+}
