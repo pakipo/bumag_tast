@@ -3,7 +3,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   message,
-  ApiRequestService
+  ApiRequestService,
+ 
 } from '../../../index'
 
 @Component({
@@ -32,21 +33,29 @@ export class FormEntryComponent implements OnInit {
   }
 
   submitFormEntery(form: FormGroup) {
-   
-    if (form.status === 'INVALID') {
-      for (let control in form.controls) {
-        form.controls[control].markAsTouched();
-      }
-    } else {
-     
-      this.apiService.autCheck({ login: form.get('userName')?.value, password: form.get('password')?.value }).subscribe(res => {
-        let aut = res as { message: string }
-        console.log(aut)
-        if (aut.message === 'ok') this.router.navigate(['userList'])
-      },
-        err => {this.authorization = true }
-      )
-    }
+    this.router.navigate(['userList'])
+    //if (form.status === 'INVALID') {
+    //  for (let control in form.controls) {
+    //    form.controls[control].markAsTouched();
+    //  }
+    //} else {
+    //  console.log("dddddddddd")
+    //  this.apiService.autCheck({ login: form.get('userName')?.value, password: form.get('password')?.value }).subscribe(res => {
+    //    let aut = res as { message: string }
+    //    console.log(aut)
+    //    //if (aut.message === 'ok')
+    //    //  this.apiService.get().subscribe(res => {
+    //    //    let data = res as any
+    //    //    console.log('ОТВЕТ')
+    //    //    console.log(data)
+    //    //  })
+    //  },
+    //    err => {
+    //      console.log(err)
+    //      this.authorization = true
+    //    }
+    //  )
+    //}
    
   }
 

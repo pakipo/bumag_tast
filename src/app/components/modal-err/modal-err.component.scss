@@ -33,11 +33,13 @@
   margin: 0;
 }
 
-.container {
+.containerForm {
+  background-color: rgba(255, 255, 255, 1);
   height: 573px;
   width: 916px;
   padding: 0;
   position: relative;
+  border-radius: 12px;
 
   .headerForm {
     display: flex;
@@ -92,11 +94,32 @@
     }
   }
 
+  .formFild:nth-last-child(1) {
+    padding: 0;
+    position: relative;
+
+    input {
+      margin: 0;
+    }
+
+    input:hover {
+      cursor: pointer;
+    }
+
+    .mat-icon-button {
+      position: absolute;
+      top: 0;
+      right: 5px;
+      widht: 0;
+      height: 0;
+    }
+  }
+
   .submit {
     position: absolute;
     bottom: 22px;
     right: 22px;
-   
+
 
     .mat-raised-button {
       width: 240px;
@@ -112,69 +135,23 @@
     }
   }
 }
+.listStatus {
+  position: absolute;
+  width: 240px;
+  padding: 14px;
+  background-color: #fbfbfb;
+  -webkit-box-shadow: 0px 5px 4px 0px rgba(204, 208, 212, 0.3) inset;
+  -moz-box-shadow: 0px 5px 4px 0px rgba(204, 208, 212, 0.3) inset;
+  box-shadow: 0px 5px 4px 0px rgba(204, 208, 212, 0.3) inset;
 
- /* form {
-    .formblock {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+  p {
+    margin: 0;
+    padding: 5px;
+  }
 
-      .formFild {
-        display: flex;
-        flex-direction: column;
-
-        input {
-          width: 240px;
-          height: 48px;
-          padding: 14px 16px;
-          background: #FFFFFF;
-          border: 1px solid #ECEBED;
-          box-sizing: border-box;
-          box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
-          border-radius: 6px;
-          outline: none;
-          font-size: 15px;
-          line-height: 20px;
-        }
-
-        &.pass {
-          position: relative;
-
-          button {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-          }
-        }
-      }
-
-      .mat-raised-button {
-        width: 240px;
-        height: 48px;
-        padding: 14px 16px;
-        background-color: #6979F8;
-        color: #FFFFFF;
-        font-family: 'Inter', sans-serif;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 17px;
-        line-height: 22px;
-      }
-    }
+  p:hover {
+    cursor: pointer;
+    background-color: #ebebeb;
   }
 }
-
-.error {
-  padding: 2px 14px;
-  margin: 0;
-  height: 17px;
-  color: red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  span {
-    margin: 0;
-    font-size: 12px;
-  }
-}*/
+  

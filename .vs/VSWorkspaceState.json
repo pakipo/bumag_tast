@@ -5,12 +5,13 @@
     "\\src\\app",
     "\\src\\app\\components",
     "\\src\\app\\components\\forms",
-    "\\src\\app\\components\\modal-err",
-    "\\src\\app\\components\\preloader",
-    "\\src\\app\\components\\users-list",
-    "\\src\\app\\shared\\services",
-    "\\src\\environments"
+    "\\src\\app\\components\\forms\\form-entry",
+    "\\src\\app\\shared",
+    "\\src\\app\\shared\\classes",
+    "\\src\\app\\shared\\enum",
+    "\\src\\assets",
+    "\\src\\assets\\img"
   ],
-  "SelectedNode": "\\src\\app\\components\\modal-err\\modal-err.component.ts",
+  "SelectedNode": "\\src\\app\\shared\\services\\auxiliary.service.ts",
   "PreviewInSolutionExplorer": false
 }

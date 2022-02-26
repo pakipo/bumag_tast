@@ -1,24 +1,45 @@
 <div class="containerList">
+  
   <div class="contentList">
-    <mat-tab-group dynamicHeight animationDuration="0ms">
+    <mat-tab-group animationDuration="0ms" (selectedTabChange)="f($event)">
 
-      <mat-tab label="Все"><button mat-raised-button (click)="modalObjCreate(mode.edit)">MODALOPEN</button> </mat-tab>
-      <mat-tab label="Заблокированные">Заблокированные</mat-tab>
-      <mat-tab label="Активные">Активные</mat-tab>
+      <mat-tab label="Все">
+        <ng-container *ngTemplateOutlet="userlist"></ng-container>
+      </mat-tab>
 
+      <mat-tab label="Активные">
+        <ng-container *ngTemplateOutlet="userlist"></ng-container>
+      </mat-tab>
+
+      <mat-tab label="Заблокированные">
+        <ng-container *ngTemplateOutlet="userlist"></ng-container>
+      </mat-tab>
     </mat-tab-group>
 
     <div class="preloader" *ngIf="preload">
       <app-preloader></app-preloader>
     </div>
-
   </div>
 </div>
 
-<div class="modalErr" *ngIf="modalErrview">
-  <app-modal-err (cancel)="cancelModal($event)" [initObj]="initModalObj"></app-modal-err>
-</div>
 
-<div class="preloader" *ngIf="preload">
-  <app-preloader></app-preloader>
-</div>
+<ng-template #userlist>
+  <ng-container *ngFor="let user of usersView">
+  <div class="userInfo" (click)="modalOpen(mode['edit'],user)">
+    <div class="mainInfo">
+      <div class="avaName">
+        <div class="ava" [style.background]="'url(' +imgPath + user.icon + ')'"> </div>
+        <p>{{getAbrName(user)}}</p>
+      </div>
+      <p class="balance">Баланс: {{user.balance.toFixed(1)}}</p>
+    </div>
+
+    <div class="dateStatus">
+      <p class="chage">Последнее изменение:{{auxService.getDate(user.lastChange)}}</p>
+      <p class="status">{{status[user.status]}}</p>
+    </div>
+  </div>
+</ng-container>
+</ng-template>
+
+

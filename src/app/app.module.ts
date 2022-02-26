@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 //material
 
 import { MatButtonModule } from '@angular/material/button';
@@ -15,10 +15,13 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import {
   ApiRequestService,
+  FakeAPIService,
   UsersListComponent,
   FormEntryComponent,
   PreloaderComponent,
   ModalErrComponent,
+  AuxiliaryService,
+  ModalService
 } from './index';
 
 
@@ -37,8 +40,12 @@ import {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    //material
+    InMemoryWebApiModule,
 
+    //УДАЛИТЬ ПРИ ДОСТУПЕ К БЭКУ
+    InMemoryWebApiModule.forRoot(FakeAPIService),
+
+    //material
     MatButtonModule,
     MatIconModule,
     FormsModule,
@@ -46,7 +53,7 @@ import {
     MatInputModule,
     MatTabsModule
   ],
-  providers: [ApiRequestService],
+  providers: [ApiRequestService, AuxiliaryService, ModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

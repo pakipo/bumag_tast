@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiRequestService, ImodalObj, Emode, Estatus } from '../../index';
+import {
+  ApiRequestService,
+  ImodalObj,
+  Emode,
+  Estatus,
+  User,
+  AuxiliaryService,
+  ModalService
+} from '../../index';
 
 
 @Component({
@@ -8,82 +16,89 @@ import { ApiRequestService, ImodalObj, Emode, Estatus } from '../../index';
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
+
+  usersView!: Array<User>
   preload: boolean = false;
-  modalErrview: boolean = false;
-  initModalObj!: ImodalObj
+  //modalErrview: boolean = false;
+  //initModalObj!: ImodalObj
   mode = Emode;
-  // УДАЛИТЬ
-  editableObject: any = {
-    name: 'Иван',
-    fname: 'Иванов',
-    mname: 'Иванович',
-    status: Estatus.активен
-  }
+  status  = Estatus;
+  imgPath: string = '../../../assets/img/'
+  date: Date = new Date(2022, 1, 1, 18, 0)
+  tabMode:'all'|'active'|'block' = 'all'
 
   constructor(
-    private apiService: ApiRequestService
+    private apiService: ApiRequestService,
+    public auxService: AuxiliaryService,
+    private modalService: ModalService
   ) { }
+
+  //дозвон при err 
   request = (() => {
     //счетчик дозвонов
     let counter = 0;
     let timer: any;
     return () => {
-      this.apiService.getUsers().subscribe(res => {
-        let data = res as any;
+ 
+      this.getUsers()!.subscribe(res => {
+        this.usersView = res as User[];
+        
         this.preload = false
         if (timer) { clearTimeout(timer);}
       },
         error => {
-          console.log(error)
+         
           timer = setTimeout(() => {
             if (counter === 1) {
               clearTimeout(timer)
-              this.modalObjCreate(Emode.alert)
+              this.modalOpen(Emode.alert)
               this.preload = false
             } else {
               this.request();
               counter++;
             }
-          }, 1000);
+          }, 5000);
         })
     }
-
   }).bind(this)()
 
+
   ngOnInit(): void {
-
-    //this.preload = true;
-    //this.request()
+    this.preload = true;
+    this.request()
+   
    
    
   }
 
-  cancelModal(e: any) {
-    this.modalErrview = false
+  modalOpen(modalMode: Emode, user?: User) {
+    this.modalService.openModal(modalMode, user)
+  }
+  getAbrName(user: User) {
+    return `${user.fname} ${user.name[0].toUpperCase()}. ${user.mname[1].toUpperCase()}.`
+  }
+  
+  getUsers() {
+    if (this.tabMode === 'all') {
+      return this.apiService.getAllUsers()
+    } else if (this.tabMode === 'active') {
+      return this.apiService.getActiveUsers()
+    }  else { return this.apiService.getBlockUsers() }
   }
 
-  modalObjCreate(modalMode: Emode) {
-    if (modalMode === 1) {
-      this.initModalObj = {
-        mode: modalMode,
-        btnText: 'Понятно',
-        message: {
-          title: 'Ошибка соединения!',
-          mess: 'Проверьте соединение с интернетом и повторите позже'
-        }
-         
-      }
-      this.modalErrview = true;
+  f(e: any) {
+    this.preload = true;
+    if (e.index === 0) {
+      this.tabMode = 'all'
+      this.request()
+    } else if (e.index === 1) {
+      this.tabMode = 'active'
+      this.request()
     } else {
-
-      this.initModalObj = {
-        mode: modalMode,
-        btnText: 'Сохранить',
-        editObj: this.editableObject
-
-      }
-      this.modalErrview = true;
+      this.tabMode = 'block'
+      this.request()
     }
+
   }
 }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,Renderer2 } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ImodalObj, Emode, Estatus } from '../../index'
 @Component({
@@ -9,8 +9,11 @@ import { ImodalObj, Emode, Estatus } from '../../index'
 export class ModalErrComponent implements OnInit {
   formEdit!: FormGroup
 
-  constructor(private fb: FormBuilder) { }
-
+  constructor(
+    private fb: FormBuilder,
+    private render: Renderer2
+  ) { }
+  statusView: boolean = false;
   @Input('initObj') initObj!: ImodalObj;
   @Output('cancel') modalWiev = new EventEmitter()
 
@@ -25,7 +28,7 @@ export class ModalErrComponent implements OnInit {
       'name': [user?.name],
       'fname': [user?.fname],
       'mname': [user?.mname],
-      'statua': [Estatus[user!.status]]
+      'status': [Estatus[user!.status]]
     })
   }
 
@@ -38,7 +41,16 @@ export class ModalErrComponent implements OnInit {
     console.log(form)
   }
 
-  f() {
-    console.log("!!!")
+  listStatusTogle() {
+    this.statusView = !this.statusView
+  }
+
+  statusChoice(e: any) {
+    let formStatus = this.formEdit.get('status')
+    formStatus?.setValue(Estatus[Estatus[e.target.textContent as keyof typeof Estatus]])
+    this.statusView = false;
+  }
+  listStatusClose() {
+    this.statusView = false;
   }
 }
