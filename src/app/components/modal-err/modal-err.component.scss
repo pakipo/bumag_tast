@@ -1,19 +1,21 @@
 
-
 .container {
   background-color: rgba(255, 255, 255, 1);
   padding: 20px;
-  border-radius:12px;
-  p{
-      text-align:center;
+  border-radius: 12px;
+
+  p {
+    text-align: center;
   }
- .title{
- 
-     font-size:20px;
- }
+
+  .title {
+    font-size: 20px;
+  }
+
   .btn {
-      display:flex;
-      justify-content:flex-end;
+    display: flex;
+    justify-content: flex-end;
+
     .mat-raised-button {
       width: 100px;
       height: 40px;
@@ -135,6 +137,7 @@
     }
   }
 }
+
 .listStatus {
   position: absolute;
   width: 240px;
@@ -154,4 +157,3 @@
     background-color: #ebebeb;
   }
 }
-  

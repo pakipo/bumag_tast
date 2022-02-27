@@ -1,6 +1,6 @@
 
 
-
+///////////////////////////////// ТЕСТОВОЕ ЗАДАНИЕ///////////////////////////////////////////////////////
 https://www.figma.com/file/JrFPGJVsLIbrYRy8pXaBpp/Frontend-Test?node-id=5%3A359
 Лоадер: https://codepen.io/TaniaLD/pen/oKxep (#6,можно не 1 в 1)
 
@@ -58,5 +58,21 @@ PATCH https://bumagi-frontend-test.herokuapp.com/users/:id
 “mname”: “Иванович”,
 “status”: 1
 }
-
 Можно отсылать не все поля.
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////// ИЗМЕНЕНИЯ ДЛЯ БЭКА///////////////////////////////////////////////////////////
+
+При отсутствии ответов с сервера,для отладки использовался fake-api.service.ts. В auxiliary.service.ts updateDB() каждые 10 секунд изменяет баланс первых 4 user. Форма входа работает с любыми login, pass(до работы сервера)
+
+
+
+1. ./assets - удалить img;
+2. form-entry.component.ts - раскомментировать все;
+3. users-list.component.ts  - удалить  this.auxService.updateDB(), auxService;
+4. api-request.service.ts - изменить path (см. комментарии)
+5. auxiliary.service.ts - удалить  updateDB();
+6. fake-api.service.ts - удалить все;
+7. index.ts - удалить export * from "./shared/services/fake-api.service";
+8. andPoints.ts - добавить нужное;
+   

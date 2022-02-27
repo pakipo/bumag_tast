@@ -1,6 +1,6 @@
 p {
   padding: 0;
-  margin:0;
+  margin: 0;
   font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -23,12 +23,12 @@ p {
     background-color: #E5E5E5;
 
     .mat-tab-group {
+
       .userInfo {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 16px;
-        width: 1344px;
         height: 80px;
         background-color: #ffffff;
         margin-bottom: 18px;
@@ -86,18 +86,47 @@ p {
     }
   }
 }
-/*
-  .modalErr {
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(063, 051, 086, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 11;
+
+@media screen and (max-width: 1440px) {
+  .containerList {
+    .contentList {
+    width:100%;
+    }
+    }
   }
-*/
+
+@media screen and (max-width: 1100px) {
+  p {
+    font-size: 15px;
+  }
+  .containerList {
+    .contentList {
+      .mat-tab-group {
+          
+        .userInfo {
+          .mainInfo {
+            .avaName {
+              .ava {
+                width: 40px;
+                height: 40px;
+              }
+               p {
+              margin-left: 16px;
+            }
+          }
+          .balance {
+            margin-left: 20px;
+          }
+        }
+        .dateStatus {
+          margin-right: 30px;
+          .status {
+            margin-left: 30px;
+          }
+          }
+        }
+      }
+    }
+  }
+}
 

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { interval } from 'rxjs';
+import { map } from 'rxjs/operators';
+import * as _ from 'lodash';
 import {
   ApiRequestService,
-  ImodalObj,
   Emode,
   Estatus,
   User,
@@ -15,17 +17,15 @@ import {
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss']
 })
-export class UsersListComponent implements OnInit {
+export class UsersListComponent implements OnInit, OnDestroy {
 
   usersView!: Array<User>
   preload: boolean = false;
-  //modalErrview: boolean = false;
-  //initModalObj!: ImodalObj
   mode = Emode;
-  status  = Estatus;
+  status = Estatus;
   imgPath: string = '../../../assets/img/'
   date: Date = new Date(2022, 1, 1, 18, 0)
-  tabMode:'all'|'active'|'block' = 'all'
+  tabMode: 'all' | 'active' | 'block' = 'all'
 
   constructor(
     private apiService: ApiRequestService,
@@ -39,15 +39,13 @@ export class UsersListComponent implements OnInit {
     let counter = 0;
     let timer: any;
     return () => {
- 
       this.getUsers()!.subscribe(res => {
         this.usersView = res as User[];
-        
+
         this.preload = false
-        if (timer) { clearTimeout(timer);}
+        if (timer) { clearTimeout(timer); }
       },
         error => {
-         
           timer = setTimeout(() => {
             if (counter === 1) {
               clearTimeout(timer)
@@ -62,31 +60,69 @@ export class UsersListComponent implements OnInit {
     }
   }).bind(this)()
 
+  updateList = () => {
+    return interval(10000).pipe(map(res => {
+      this.getUsers()!.subscribe(res => {
+        let arrUsers = res as User[]
+        let arrNewUsers: User[] = []
+        arrUsers.map(user => {
+          let currUserIndex = _.findIndex(this.usersView, { id: user.id })
+          //если добавлены новые user
+          if (currUserIndex === -1) { arrNewUsers.push(user) }
+          else {
+            if (!_.isEqual(user, this.usersView[currUserIndex])) {
+              let keys = Object.keys(this.usersView[currUserIndex])
+              for (let key of keys) {
+                if (this.usersView[currUserIndex][key] !== user[key]) {
+                  this.usersView[currUserIndex][key] = user[key]
+                }
+
+              }
+            }
+          }
+        })
+        if (arrNewUsers.length !== 0) {
+          arrNewUsers.map(user => {
+            this.usersView.push(user)
+          })
+        }
+
+      },
+        err => { }
+      )
+    })
+    ).subscribe()
+  }
+
 
   ngOnInit(): void {
+
+    //дляfakeAPI УДАЛИТЬ
+    this.auxService.updateDB()
+
     this.preload = true;
     this.request()
-   
-   
-   
+    //обновляять список каждые 10с
+    this.updateList()
   }
 
   modalOpen(modalMode: Emode, user?: User) {
     this.modalService.openModal(modalMode, user)
   }
+
   getAbrName(user: User) {
     return `${user.fname} ${user.name[0].toUpperCase()}. ${user.mname[1].toUpperCase()}.`
   }
-  
+
   getUsers() {
     if (this.tabMode === 'all') {
       return this.apiService.getAllUsers()
     } else if (this.tabMode === 'active') {
       return this.apiService.getActiveUsers()
-    }  else { return this.apiService.getBlockUsers() }
+    } else { return this.apiService.getBlockUsers() }
   }
 
-  f(e: any) {
+  tabChange(e: any) {
     this.preload = true;
     if (e.index === 0) {
       this.tabMode = 'all'
@@ -99,6 +135,9 @@ export class UsersListComponent implements OnInit {
       this.request()
     }
 
+  }
+  ngOnDestroy() {
+    this.updateList().unsubscribe()
   }
 }
 

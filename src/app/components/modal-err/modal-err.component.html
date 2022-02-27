@@ -27,33 +27,33 @@
       <div class="names">
 
         <div class="formFild">
-          <input #userName type="text" formControlName="fname" placeholder="Фамилия" autocomplete="off"(click)="listStatusClose()"/>
+          <input #userName type="text" formControlName="fname" placeholder="Фамилия" autocomplete="off" (click)="listStatusClose()" />
 
         </div>
 
         <div class="formFild">
-          <input #userName type="text" formControlName="name" placeholder="Имя" autocomplete="off" (click)="listStatusClose()"/>
+          <input #userName type="text" formControlName="name" placeholder="Имя" autocomplete="off" (click)="listStatusClose()" />
 
         </div>
 
         <div class="formFild">
-          <input #userName type="text" formControlName="mname" placeholder="Отчество" autocomplete="off" (click)="listStatusClose()"/>
+          <input #userName type="text" formControlName="mname" placeholder="Отчество" autocomplete="off" (click)="listStatusClose()" />
         </div>
 
-         <div class="formFild ">
-        <input  type="text" formControlName="status" readonly autocomplete="off" (click)="listStatusTogle()" />
-        <button type="button" mat-icon-button (click)="listStatusTogle()" >
-          <mat-icon>arrow_drop_down</mat-icon>
-        </button>
-        <div class="listStatus" *ngIf="statusView" (click)="statusChoice($event)">
-          <p class="status">Подписка активна</p>
-          <p class="status">Подписка приостановлена</p>
-          <p class="status">Заблокирован</p>
+        <div class="formFild ">
+          <input type="text" formControlName="status" readonly autocomplete="off" (click)="listStatusTogle()" />
+          <button type="button" mat-icon-button (click)="listStatusTogle()">
+            <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+          <div class="listStatus" *ngIf="statusView" (click)="statusChoice($event)">
+            <p class="status">Подписка активна</p>
+            <p class="status">Подписка приостановлена</p>
+            <p class="status">Заблокирован</p>
 
+          </div>
         </div>
-      </div>
 
-      
+
       </div>
       <div class="submit">
         <button mat-raised-button>Сохранить</button>

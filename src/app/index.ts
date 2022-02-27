@@ -3,14 +3,15 @@ export * from "./shared/form/errMessage/errMess"
 
 //сервисы
 export * from "./shared/services/api-request.service"
-export * from "./shared/services/fake-api.service"
 export * from "./shared/services/auxiliary.service"
 export * from "./shared/services/modal.service"
 
+//УДАЛИТЬ
+export * from "./shared/services/fake-api.service"
 
 //вспомогательные
 
-export * from "../environments/entretyChck"
+export * from "../environments/andPoints"
 
 //компоненты
 

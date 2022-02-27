@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class ApiRequestService {
   path: string = 'https://bumagi-frontend-test.herokuapp.com'
-  
+
   constructor(
     private http: HttpClient
   ) { }
@@ -17,37 +17,31 @@ export class ApiRequestService {
   autCheck(enteryObj: { "login": string, "password": string }) {
     return this.http.post(this.path + apiEndPoints.auth, enteryObj)
   }
-
+  //ИЗМЕНИТЬ PATH ДЛЯ БЭКА
   getAllUsers() {
-  return  this.http.get('api/users')
-    
-  }
- 
+    return this.http.get('api/users')
 
+  }
+
+  //ИЗМЕНИТЬ PATH ДЛЯ БЭКА
   getActiveUsers() {
-    return this.http.get('api/users').pipe(map( res => {
+    return this.http.get('api/users').pipe(map(res => {
       let arr = res as User[]
-      let resArr = []
-      resArr.push(arr[0])
-      resArr.push(arr[1])
-      resArr.push(arr[2])
+      let resArr = arr.filter(user => user.status === 0)
       return resArr
     }))
   }
-
+  //ИЗМЕНИТЬ PATH ДЛЯ БЭКА
   getBlockUsers() {
-    return this.http.get('api/users').pipe(map (res => {
+    return this.http.get('api/users').pipe(map(res => {
       let arr = res as User[]
-      let resArr = []
-      resArr.push(arr[0])
-      resArr.push(arr[1])
-      resArr.push(arr[2])
-      resArr.push(arr[3])
-      resArr.push(arr[4])
-      resArr.push(arr[5])
+      let resArr = arr.filter(user => user.status === 2)
       return resArr
     }))
   }
 
-
+  //ИЗМЕНИТЬ PATH ДЛЯ БЭКА
+  updateUser(user: User) {
+    return this.http.put('api/users', user)
+  }
 }

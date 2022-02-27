@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter,Renderer2 } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ImodalObj, Emode, Estatus } from '../../index'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ImodalObj, Estatus, ApiRequestService } from '../../index'
+
 @Component({
   selector: 'app-modal-err',
   templateUrl: './modal-err.component.html',
@@ -11,8 +12,9 @@ export class ModalErrComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private render: Renderer2
+    private apiService: ApiRequestService
   ) { }
+
   statusView: boolean = false;
   @Input('initObj') initObj!: ImodalObj;
   @Output('cancel') modalWiev = new EventEmitter()
@@ -38,7 +40,19 @@ export class ModalErrComponent implements OnInit {
   }
 
   submitForm(form: FormGroup) {
-    console.log(form)
+    let user: any = this.initObj.editObj!
+    if (!form.pristine || Estatus[form.controls['status'].value] !== user.status) {
+      for (let control in form.controls) {
+        if (control === 'status' && Estatus[form.controls[control].value] !== user.status) {
+          user[control] = Estatus[form.controls[control].value]
+        }
+        if (!form.controls[control].pristine) {
+          user[control] = form.controls[control].value
+        }
+      }
+      this.apiService.updateUser(user).subscribe()
+    }
+
   }
 
   listStatusTogle() {
@@ -50,7 +64,10 @@ export class ModalErrComponent implements OnInit {
     formStatus?.setValue(Estatus[Estatus[e.target.textContent as keyof typeof Estatus]])
     this.statusView = false;
   }
+
   listStatusClose() {
     this.statusView = false;
   }
+
 }
+

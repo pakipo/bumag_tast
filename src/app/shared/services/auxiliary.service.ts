@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { interval } from 'rxjs';
+import { map} from 'rxjs/operators';
+import {ApiRequestService,User } from '../../index';
 
 
 
@@ -7,7 +10,7 @@ import { Injectable } from '@angular/core';
 })
 export class AuxiliaryService {
 
-  constructor() { }
+  constructor(private apiService: ApiRequestService) { }
 
   getDate(date: Date) {
     let timeInterval = Math.round((new Date().getTime() - new Date(date).getTime()) / 1000)
@@ -84,4 +87,41 @@ export class AuxiliaryService {
       return ` ${day} дн. назад`
     }
   }
+
+  //для fakeApi, УДАЛИТЬ
+
+  updateDB() {
+    interval(10000).pipe(
+      map(() => {
+        return this.apiService.getAllUsers().subscribe(res => {
+          let arr = res as User[]
+        
+          let user
+          user = arr[0]
+          user.balance = user.balance + 50
+          this.apiService.updateUser(user).subscribe()
+
+          user = arr[1]
+        
+          user.balance = user.balance + 50
+        
+          this.apiService.updateUser(user).subscribe()
+
+          user = arr[2]
+        
+          user.balance = user.balance + 50
+        
+          this.apiService.updateUser(user).subscribe()
+
+          user = arr[3]
+          user.balance = user.balance + 50
+          this.apiService.updateUser(user).subscribe()
+          return arr
+        })
+      })
+
+    ).subscribe()
+
+  }
+
 }

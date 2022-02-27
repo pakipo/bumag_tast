@@ -10,8 +10,8 @@ import { map, concatMap } from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit  {
- 
+export class AppComponent implements OnInit {
+
 
   constructor(
     private modalService: ModalService

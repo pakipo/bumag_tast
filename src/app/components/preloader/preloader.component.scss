@@ -55,20 +55,15 @@
     width: 50%;
   }
 
-  .box{
+  .box {
     background-color: inherit;
   }
-
- 
 }
 
 @media (max-width: 420px) {
   .box {
     width: 100%;
   }
-
-
-
 }
 
 .loader:before {

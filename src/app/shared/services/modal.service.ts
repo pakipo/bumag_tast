@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Emode, User, ImodalObj } from '../../index';
+import { Emode, User} from '../../index';
 
 @Injectable({
   providedIn: 'root'
@@ -33,11 +33,9 @@ export class ModalService {
           title: 'Ошибка соединения!',
           mess: 'Проверьте соединение с интернетом и повторите позже'
         }
-
       }
       return initModalObj
     } else {
-
      initModalObj = {
         mode: modalMode,
         btnText: 'Сохранить',

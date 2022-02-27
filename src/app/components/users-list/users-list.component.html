@@ -1,7 +1,7 @@
 <div class="containerList">
-  
+
   <div class="contentList">
-    <mat-tab-group animationDuration="0ms" (selectedTabChange)="f($event)">
+    <mat-tab-group animationDuration="0ms" (selectedTabChange)=" tabChange($event)">
 
       <mat-tab label="Все">
         <ng-container *ngTemplateOutlet="userlist"></ng-container>
@@ -25,21 +25,21 @@
 
 <ng-template #userlist>
   <ng-container *ngFor="let user of usersView">
-  <div class="userInfo" (click)="modalOpen(mode['edit'],user)">
-    <div class="mainInfo">
-      <div class="avaName">
-        <div class="ava" [style.background]="'url(' +imgPath + user.icon + ')'"> </div>
-        <p>{{getAbrName(user)}}</p>
+    <div class="userInfo" (click)="modalOpen(mode['edit'],user)">
+      <div class="mainInfo">
+        <div class="avaName">
+          <div class="ava" [style.background]="'url(' +imgPath + user.icon + ')'"> </div>
+          <p>{{getAbrName(user)}}</p>
+        </div>
+        <p class="balance">Баланс: {{user.balance.toFixed(1)}}</p>
       </div>
-      <p class="balance">Баланс: {{user.balance.toFixed(1)}}</p>
-    </div>
 
-    <div class="dateStatus">
-      <p class="chage">Последнее изменение:{{auxService.getDate(user.lastChange)}}</p>
-      <p class="status">{{status[user.status]}}</p>
+      <div class="dateStatus">
+        <p class="chage">Последнее изменение:{{auxService.getDate(user.lastChange)}}</p>
+        <p class="status">{{status[user.status]}}</p>
+      </div>
     </div>
-  </div>
-</ng-container>
+  </ng-container>
 </ng-template>
 
 
